@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Philippines Boys Trip 🇵🇭</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ocean: #0094c6;
+    --ocean-light: #e8f6fd;
+    --teal: #00a896;
+    --teal-light: #e6f7f5;
+    --confirmed: #2d9c6e;
+    --confirmed-light: #eaf7f1;
+    --pending: #e07b39;
+    --pending-light: #fef3ec;
+    --text: #1a2e3b;
+    --text-mid: #4a6278;
+    --text-light: #8aa0b0;
+    --border: #e4ecf1;
+    --bg: #f6f9fb;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  .hero {
+    background: linear-gradient(150deg, #e8f6fd 0%, #d0eef9 50%, #e0f5f2 100%);
+    padding: 52px 40px 40px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .flag { font-size: 2.8rem; margin-bottom: 10px; display: block; }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900;
+    color: var(--text);
+    letter-spacing: -1px;
+  }
+
+  .hero h1 span { color: var(--ocean); }
+
+  .hero-meta {
+    margin-top: 14px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .hero-pill {
+    background: #fff;
+    border: 1px solid var(--border);
+    padding: 5px 13px;
+    border-radius: 99px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-mid);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+
+  .main { max-width: 820px; margin: 0 auto; padding: 34px 20px 60px; }
+
+  .section-label {
+    font-size: 0.67rem;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--ocean);
+    margin-bottom: 4px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .flight-section { margin-bottom: 38px; }
+
+  .flight-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    padding: 16px 20px;
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    align-items: start;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+
+  .flight-card.confirmed { border-left: 4px solid var(--confirmed); }
+  .flight-card.pending { border-left: 4px solid var(--pending); }
+
+  .flight-route {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+
+  .flight-details { font-size: 0.78rem; color: var(--text-mid); line-height: 1.75; }
+  .flight-price { text-align: right; }
+
+  .price-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--ocean);
+  }
+
+  .price-label { font-size: 0.68rem; color: var(--text-light); display: block; }
+
+  .status-badge {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 99px;
+    font-size: 0.67rem;
+    font-weight: 500;
+    margin-top: 5px;
+  }
+
+  .status-badge.confirmed { background: var(--confirmed-light); color: var(--confirmed); border: 1px solid #b0ddc8; }
+  .status-badge.pending { background: var(--pending-light); color: var(--pending); border: 1px solid #f3c49c; }
+
+  .stops-section { margin-bottom: 38px; }
+
+  .stop-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    overflow: hidden;
+    margin-bottom: 13px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.045);
+  }
+
+  .stop-header {
+    padding: 15px 20px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    background: var(--ocean-light);
+  }
+
+  .stop-number {
+    font-size: 0.63rem;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--ocean);
+    margin-bottom: 2px;
+  }
+
+  .stop-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .stop-dates { font-size: 0.74rem; color: var(--text-mid); margin-top: 2px; }
+
+  .stop-nights {
+    background: var(--ocean);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 4px 11px;
+    border-radius: 99px;
+    white-space: nowrap;
+  }
+
+  .stop-body { padding: 12px 20px; }
+
+  .day-item {
+    display: grid;
+    grid-template-columns: 86px 1fr;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+
+  .day-item:last-child { border-bottom: none; }
+
+  .day-label { font-size: 0.68rem; font-weight: 500; color: var(--text-light); padding-top: 2px; }
+
+  .day-content { font-size: 0.84rem; color: var(--text-mid); line-height: 1.55; }
+  .day-content strong { color: var(--text); font-weight: 500; }
+
+  .activity-tag {
+    display: inline-block;
+    font-size: 0.64rem;
+    font-weight: 500;
+    padding: 2px 7px;
+    border-radius: 99px;
+    margin-right: 3px;
+    margin-bottom: 4px;
+  }
+
+  .tag-surf { background: #ddf0fb; color: #0077a8; border: 1px solid #aaddf5; }
+  .tag-dive { background: var(--teal-light); color: #007a6e; border: 1px solid #a8ddd9; }
+  .tag-sight { background: #fff3e6; color: #b85c00; border: 1px solid #fad0a0; }
+  .tag-free { background: #f1f4f6; color: var(--text-mid); border: 1px solid var(--border); }
+
+  .transport-strip {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 13px;
+    margin: 7px 0 3px;
+    font-size: 0.76rem;
+    color: var(--text-mid);
+  }
+
+  .transport-strip .icon { font-size: 0.95rem; flex-shrink: 0; }
+  .transport-strip strong { color: var(--text); }
+  .transport-strip .t-price { margin-left: auto; color: var(--ocean); font-weight: 500; white-space: nowrap; font-size: 0.76rem; }
+
+  .transport-strip.is-confirmed { border-color: #b0ddc8; background: var(--confirmed-light); }
+  .transport-strip.is-confirmed .t-price { color: var(--confirmed); }
+
+  .budget-section { margin-bottom: 38px; }
+
+  .budget-table {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+
+  .budget-group-header {
+    background: var(--bg);
+    padding: 7px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.67rem;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-light);
+  }
+
+  .budget-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.83rem;
+  }
+
+  .budget-row:last-child { border-bottom: none; }
+  .budget-row .cat { color: var(--text-mid); }
+  .budget-row .amt { color: var(--ocean); font-weight: 500; text-align: right; }
+  .budget-row .amt.confirmed { color: var(--confirmed); }
+  .budget-row .amt.pending { color: var(--pending); }
+
+  .budget-row.subtotal { background: var(--confirmed-light); border-top: 1px solid #b0ddc8; }
+  .budget-row.subtotal .cat { color: var(--confirmed); font-weight: 500; }
+  .budget-row.subtotal .amt { color: var(--confirmed); font-weight: 600; }
+
+  .budget-row.total { background: var(--ocean-light); border-top: 2px solid var(--ocean); }
+  .budget-row.total .cat { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--text); font-weight: 700; }
+  .budget-row.total .amt { color: var(--ocean); font-size: 0.95rem; font-weight: 700; }
+
+  .tips {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    padding: 16px 20px;
+    font-size: 0.8rem;
+    color: var(--text-mid);
+    line-height: 2;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+
+  .tips strong { color: var(--text); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="flag">🇵🇭</span>
+  <h1>Philippines <span>Boys Trip</span></h1>
+  <div class="hero-meta">
+    <div class="hero-pill">📅 Dec 2 – 11, 2026</div>
+    <div class="hero-pill">✈️ Sydney → Cebu</div>
+    <div class="hero-pill">👥 6 People</div>
+    <div class="hero-pill">🏄 Surf · 🤿 Scuba · 📸 Sights</div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- FLIGHTS -->
+  <div class="flight-section">
+    <div class="section-label">Getting There & Back</div>
+    <div class="section-title">Flights</div>
+
+    <div class="flight-card confirmed">
+      <div>
+        <div class="flight-route">Sydney → Brisbane → Cebu ✈️</div>
+        <div class="flight-details">Jetstar · JQ 812 + JQ 101 · Economy<br>Departs SYD 9:35am → BNE 10:05am · 2h 25m layover · Departs BNE 12:30pm → CEB 5:15pm · Wed 2 December</div>
+        <span class="status-badge pending">Price Guide</span>
+      </div>
+      <div class="flight-price">
+        <div class="price-amount">A$608</div>
+        <span class="price-label">per person</span>
+      </div>
+    </div>
+
+    <div class="flight-card pending">
+      <div>
+        <div class="flight-route">Cebu → El Nido ✈️</div>
+        <div class="flight-details">AirSWIFT · T6 5337 · ATR 72 · Economy<br>Departs CEB 9:20am → ENI 11:10am · Mon 7 December</div>
+        <span class="status-badge pending">Price Guide</span>
+      </div>
+      <div class="flight-price">
+        <div class="price-amount">A$199</div>
+        <span class="price-label">per person</span>
+      </div>
+    </div>
+
+    <div class="flight-card pending">
+      <div>
+        <div class="flight-route">Puerto Princesa → Manila → Sydney ✈️</div>
+        <div class="flight-details">Cebu Pacific · 5J 646 + 5J 39 · Economy<br>Departs PPS 6:30pm → MNL 8:10pm · 2h 55m layover · Departs MNL 11:05pm → SYD 10:45am+1 · Fri 11 December</div>
+        <span class="status-badge pending">Price Guide</span>
+      </div>
+      <div class="flight-price">
+        <div class="price-amount">A$306</div>
+        <span class="price-label">per person</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ITINERARY -->
+  <div class="stops-section">
+    <div class="section-label">The Plan</div>
+    <div class="section-title">Itinerary</div>
+
+    <!-- MOALBOAL -->
+    <div class="stop-card">
+      <div class="stop-header">
+        <div>
+          <div class="stop-number">Stop 01</div>
+          <div class="stop-name">Moalboal, Cebu</div>
+          <div class="stop-dates">Dec 2 – 6</div>
+        </div>
+        <div class="stop-nights">4 nights</div>
+      </div>
+      <div class="stop-body">
+
+        <div class="transport-strip is-confirmed">
+          <span class="icon">🏡</span>
+          <span><strong>Bungalow 1: Garden View Room</strong> · 3 × Entire Bungalow (2 per bungalow) · Dec 2–6 · Guest: Gabe Newhouse</span>
+          <span class="t-price">A$189/person ✓</span>
+        </div>
+
+        <div class="day-item">
+          <div class="day-label">Day 1 · Dec 2</div>
+          <div class="day-content">
+            <span class="activity-tag tag-free">Arrival</span><br>
+            Land 5:15pm, van south to Moalboal (~2 hrs, ~A$10). Check in, get food, easy first night.
+          </div>
+        </div>
+
+        <div class="day-item">
+          <div class="day-label">Day 2 · Dec 3</div>
+          <div class="day-content">
+            <span class="activity-tag tag-free">Explore</span><br>
+            Settle in. Moalboal is a small beach town — walk it, find your dive shop for the week, get your bearings. Easy day.
+          </div>
+        </div>
+
+        <div class="day-item">
+          <div class="day-label">Day 3 · Dec 4</div>
+          <div class="day-content">
+            <span class="activity-tag tag-sight">Whale Sharks</span>
+            <span class="activity-tag tag-dive">Scuba</span><br>
+            <strong>Oslob Whale Sharks + Sardine Run</strong> · Island Trek Tours · All-inclusive private group package.<br><br>
+            5am pickup → Oslob whale shark dive (1 hr) → Tumalog Falls → Moalboal sardine run + sea turtle dive → back by 7pm. Transport, equipment, breakfast and all fees included.<br><br>
+            <span style="color:var(--pending); font-size:0.77rem;">⚠️ Dec 4 is Christmas week — expect queues at Oslob. Book early and confirm pickup time from Moalboal.</span>
+          </div>
+        </div>
+
+        <div class="day-item">
+          <div class="day-label">Day 4 · Dec 5</div>
+          <div class="day-content">
+            <span class="activity-tag tag-dive">Scuba</span><br>
+            <strong>Moalboal dive day.</strong> Sardines and turtles right off the beach — no boat needed. Some of the best shore diving in Asia.
+          </div>
+        </div>
+
+        <div class="day-item">
+          <div class="day-label">Day 5 · Dec 6</div>
+          <div class="day-content">
+            <span class="activity-tag tag-sight">Adventure</span><br>
+            <strong>Kawasan Falls — Full Course Canyoneering.</strong> Pickup 8–8:30am from accommodation (free for Moalboal/Badian guests). Full route, cliff jumping into electric-blue water, free lunch after.<br><br>
+            Afternoon: pack up, van north to Mactan (~2 hrs).<br>
+            <span style="color:var(--confirmed); font-size:0.77rem;">✅ No diving today — safe to fly tomorrow.</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MACTAN -->
+    <div class="stop-card">
+      <div class="stop-header">
+        <div>
+          <div class="stop-number">Stop 01b</div>
+          <div class="stop-name">Mactan Island</div>
+          <div class="stop-dates">Dec 6 – 7</div>
+        </div>
+        <div class="stop-nights">1 night</div>
+      </div>
+      <div class="stop-body">
+
+        <div class="transport-strip is-confirmed">
+          <span class="icon">🏨</span>
+          <span><strong>Waterfront Airport Hotel and Casino</strong> · 3 × Superior Double/Twin · Check-in 3pm Sun 6 Dec · Check-out Mon 7 Dec</span>
+          <span class="t-price">A$70/person ✓</span>
+        </div>
+
+        <div class="day-item">
+          <div class="day-label">Day 5 Eve · Dec 6</div>
+          <div class="day-content">
+            <span class="activity-tag tag-sight">Sightseeing</span>
+            <span class="activity-tag tag-free">Casino</span><br>
+            Check in from 3pm. Visit the <strong>Mactan Shrine</strong> — where Magellan was killed in 1521. Free, 30 mins. Then dinner and casino night in the hotel — blackjack, drinks. Early night though, flight at 9:20am.
+          </div>
+        </div>
+
+        <div class="day-item">
+          <div class="day-label">Day 6 · Dec 7</div>
+          <div class="day-content">
+            <span class="activity-tag tag-free">Departure</span><br>
+            Airport is 10 mins away. Up at 7am, airport by 7:30am, departs 9:20am to El Nido.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- EL NIDO -->
+    <div class="stop-card">
+      <div class="stop-header">
+        <div>
+          <div class="stop-number">Stop 02</div>
+          <div class="stop-name">El Nido, Palawan</div>
+          <div class="stop-dates">Dec 7 – 10</div>
+        </div>
+        <div class="stop-nights">3 nights</div>
+      </div>
+      <div class="stop-body">
+
+        <div class="transport-strip is-confirmed">
+          <span class="icon">🏨</span>
+          <span><strong>Sea Cocoon Hotel</strong> · 3 × Standard Twin Room · Check-in Mon 7 Dec 2pm · Check-out Thu 10 Dec 12pm · 8.7 rating · 9.5 location</span>
+          <span class="t-price">A$199/person ✓</span>
+        </div>
+
+        <div class="day-item">
+          <div class="day-label">Day 6 · Dec 7</div>
+          <div class="day-content">
+            <span class="activity-tag tag-free">Arrival</span><br>
+            Fly in, check in from 2pm. Walk the town, easy first evening.
+          </div>
+        </div>
+
+        <div class="day-item">
+          <div class="day-label">Day 7 · Dec 8</div>
+          <div class="day-content">
+            <span class="activity-tag tag-surf">Surf</span><br>
+            <strong>Duli Beach.</strong> Hidden jungle beach in north El Nido. Mellow beginner waves, virtually no crowds. All day board hire — A$25/person.
+          </div>
+        </div>
+
+        <div class="day-item">
+          <div class="day-label">Day 8 · Dec 9</div>
+          <div class="day-content">
+            <span class="activity-tag tag-sight">Sightseeing</span><br>
+            <strong>Bacuit Bay — Shared Island Hopping Tour.</strong> 9:30am · 6 hrs · Meet at El Nido town.<br>
+            Secret Lagoon → Shimizu Island → Seven Commandos Beach → Big Lagoon. Guide and lunch included.<br><br>
+            <span style="color:var(--pending); font-size:0.77rem;">⚠️ Extra cash needed on day: eco-tourism fee 400 PHP (~A$9) + Big Lagoon entry 200 PHP (~A$4.50). No hotel pickup.</span>
+          </div>
+        </div>
+
+        <div class="day-item">
+          <div class="day-label">Day 9 · Dec 10</div>
+          <div class="day-content">
+            <span class="activity-tag tag-free">Flex Day</span><br>
+            <strong>Relaxed last day in El Nido.</strong> Options:<br>
+            <span style="color:var(--text-mid); font-size:0.81rem; line-height:1.9; display:block; margin-top:4px;">
+              🤿 <strong style="color:var(--text);">El Nido reef dive</strong> — local dive shop, good sites around the bay<br>
+              🏄 <strong style="color:var(--text);">More surf at Duli</strong> — second session if Day 7 was a hit<br>
+              🏖️ <strong style="color:var(--text);">Do nothing</strong> — beach, hammock, cold San Mig
+            </span><br>
+            <span class="activity-tag tag-free">Transfer</span><br>
+            <strong>Evening — Van to Puerto Princesa.</strong> ~5 hrs. Arrive PPS night of Dec 10.
+          </div>
+        </div>
+
+        <div class="transport-strip is-confirmed">
+          <span class="icon">🚐</span>
+          <span><strong>El Nido → Puerto Princesa</strong> · Tourist Minivan · ~5 hrs</span>
+          <span class="t-price">A$19.45/person ✓</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PUERTO PRINCESA -->
+    <div class="stop-card">
+      <div class="stop-header">
+        <div>
+          <div class="stop-number">Stop 03</div>
+          <div class="stop-name">Puerto Princesa</div>
+          <div class="stop-dates">Dec 10 – 11</div>
+        </div>
+        <div class="stop-nights">1 night</div>
+      </div>
+      <div class="stop-body">
+
+        <div class="transport-strip is-confirmed">
+          <span class="icon">🏨</span>
+          <span><strong>Panja Resort Palawan</strong> · 3 × Deluxe Twin Room · Guest: Gabe Newhouse · Free cancellation before 5 Dec</span>
+          <span class="t-price">A$47/person ✓</span>
+        </div>
+
+        <div class="day-item">
+          <div class="day-label">Day 9 Eve · Dec 10</div>
+          <div class="day-content">
+            <span class="activity-tag tag-free">Arrival</span><br>
+            Arrive late from El Nido. Check in, dinner, sleep.
+          </div>
+        </div>
+
+        <div class="day-item">
+          <div class="day-label">Day 10 · Dec 11</div>
+          <div class="day-content">
+            <span class="activity-tag tag-free">Flex Day</span><br>
+            <strong>Last day — Puerto Princesa.</strong> Options:<br>
+            <span style="color:var(--text-mid); font-size:0.81rem; line-height:1.9; display:block; margin-top:4px;">
+              🦇 <strong style="color:var(--text);">Underground River</strong> — one of the world's great cave systems. Book permits in advance, sell out in December. ~A$30/person<br>
+              🌿 <strong style="color:var(--text);">Palawan Wildlife Rescue Centre</strong> — crocodiles, bearcat, pangolin. Free or minimal entry<br>
+              🛵 <strong style="color:var(--text);">Honda Bay island hopping</strong> — snorkel, beach, relaxed half day. ~A$20–30/person<br>
+              🍺 <strong style="color:var(--text);">Do nothing</strong> — pool at Panja Resort, cold beer, debrief the trip
+            </span><br>
+            <span class="activity-tag tag-free">Departure</span><br>
+            Flight departs 6:30pm — head to airport by 5pm.
+          </div>
+        </div>
+
+        <div class="transport-strip is-confirmed">
+          <span class="icon">✈️</span>
+          <span><strong>PPS 6:30pm → MNL 8:10pm → SYD 10:45am+1</strong> · Cebu Pacific 5J 646 + 5J 39 · 2h 55m layover MNL</span>
+          <span class="t-price">A$306/person ✓</span>
+        </div>
+
+        <div class="day-item">
+          <div class="day-label">Note</div>
+          <div class="day-content" style="color:var(--text-light); font-size:0.76rem;">
+            PPS–MNL is flagged as often delayed 30+ min. The 2h 55m Manila layover should be sufficient buffer.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BUDGET -->
+  <div class="budget-section">
+    <div class="section-label">Money</div>
+    <div class="section-title">Budget Per Person</div>
+    <div class="budget-table">
+
+      <div class="budget-group-header">✈️ Flights</div>
+      <div class="budget-row">
+        <div class="cat">SYD → BNE → CEB · Jetstar JQ812 + JQ101</div>
+        <div class="amt">A$608</div>
+      </div>
+      <div class="budget-row">
+        <div class="cat">CEB → ENI · AirSWIFT T6 5337</div>
+        <div class="amt">A$199</div>
+      </div>
+      <div class="budget-row">
+        <div class="cat">PPS → MNL → SYD · Cebu Pacific 5J646 + 5J39</div>
+        <div class="amt">A$306</div>
+      </div>
+
+      <div class="budget-group-header">🚐 Ground Transport</div>
+      <div class="budget-row">
+        <div class="cat">El Nido → Puerto Princesa · Minivan</div>
+        <div class="amt">A$19.45</div>
+      </div>
+
+      <div class="budget-group-header">🏨 Accommodation</div>
+      <div class="budget-row">
+        <div class="cat">Moalboal · Bungalow 1 Garden View · 4 nights ✓</div>
+        <div class="amt confirmed">A$189</div>
+      </div>
+      <div class="budget-row">
+        <div class="cat">Mactan · Waterfront Airport Hotel & Casino · 1 night ✓</div>
+        <div class="amt confirmed">A$70</div>
+      </div>
+      <div class="budget-row">
+        <div class="cat">El Nido · Sea Cocoon Hotel · 3 nights ✓</div>
+        <div class="amt confirmed">A$199</div>
+      </div>
+      <div class="budget-row">
+        <div class="cat">Puerto Princesa · Panja Resort · 1 night ✓</div>
+        <div class="amt confirmed">A$47</div>
+      </div>
+
+      <div class="budget-group-header">🛡️ Travel Insurance</div>
+      <div class="budget-row">
+        <div class="cat">World2Cover Essentials · Unlimited medical · A$10k cancellation · A$7.5k luggage</div>
+        <div class="amt">A$83.76</div>
+      </div>
+
+      <div class="budget-group-header">🎯 Activities</div>
+      <div class="budget-row">
+        <div class="cat">Day 3 · Oslob Whale Sharks + Sardine Run · Island Trek Tours</div>
+        <div class="amt">A$166</div>
+      </div>
+      <div class="budget-row">
+        <div class="cat">Day 4 · Moalboal scuba dive</div>
+        <div class="amt pending">TBC</div>
+      </div>
+      <div class="budget-row">
+        <div class="cat">Day 5 · Kawasan Falls canyoneering · Standard Package A</div>
+        <div class="amt">A$48</div>
+      </div>
+      <div class="budget-row">
+        <div class="cat">Day 7 · Duli Beach surf hire (all day)</div>
+        <div class="amt">A$25</div>
+      </div>
+      <div class="budget-row">
+        <div class="cat">Day 8 · Bacuit Bay Island Hopping Tour</div>
+        <div class="amt">A$35.43</div>
+      </div>
+      <div class="budget-row">
+        <div class="cat">Day 8 · Eco-tourism + Big Lagoon entry fees (cash on day)</div>
+        <div class="amt">~A$14</div>
+      </div>
+      <div class="budget-row">
+        <div class="cat">Days 9–10 · Flex activities (optional)</div>
+        <div class="amt pending">TBC</div>
+      </div>
+
+      <div class="budget-group-header">🍺 Food & Drinks</div>
+      <div class="budget-row">
+        <div class="cat">10 days · est. A$40–60/day</div>
+        <div class="amt">A$400 – A$600</div>
+      </div>
+
+      <div class="budget-row subtotal">
+        <div class="cat">Accommodation confirmed ✓</div>
+        <div class="amt">A$505</div>
+      </div>
+      <div class="budget-row" style="background: var(--ocean-light); border-top: 1px solid #b0d8ee;">
+        <div class="cat" style="color: var(--ocean); font-weight:500;">Total priced so far (excl. TBC + food)</div>
+        <div class="amt" style="color: var(--ocean); font-weight:600;">A$2,009.64</div>
+      </div>
+      <div class="budget-row total">
+        <div class="cat">Estimated Grand Total</div>
+        <div class="amt">~A$2,500 – A$2,750</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TIPS -->
+  <div class="tips">
+    <strong>📌 Book early:</strong> Oslob whale sharks fills up fast in December — book ASAP.<br>
+    <strong>🏝️ Underground River:</strong> Permits sell out weeks ahead in December — prioritise if the group wants it.<br>
+    <strong>🌊 Kawasan Falls:</strong> Book the night before, start as early as possible before crowds arrive.<br>
+    <strong>⚠️ Flight note:</strong> PPS–MNL is often delayed 30+ min — 2h 55m Manila layover should be fine but keep an eye on it.<br>
+    <strong>🚖 Manila transport:</strong> Use Grab only — never street taxis.
+  </div>
+
+</div>
+</body>
+</html>
